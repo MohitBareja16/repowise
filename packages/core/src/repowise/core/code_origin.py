@@ -258,6 +258,9 @@ _VENDORED_DIR_TOKENS = frozenset(
         "node_modules",
         "bower_components",
         "site-packages",
+        # The Dart SDK's embedding headers that Flutter FFI plugins keep a copy
+        # of (``src/dart-sdk/include/dart_api_dl.h``).
+        "dart-sdk",
     }
 )
 # Matched as the first segment, or as a native tree's library shelf
