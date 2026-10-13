@@ -95,6 +95,11 @@ _OWN_HEADER = (
         ("x-pack/inference/src/main/java/org/x/external/http/Sender.java", "production"),
         ("src/pkg/external/client.py", "production"),
         ("sdk/llms/src/providers/vendors/openai.ts", "production"),
+        # the Dart SDK headers a Flutter FFI plugin vendors under dart-sdk/
+        ("pedometer/src/dart-sdk/include/dart_tools_api.h", "vendored"),
+        ("src/dart-sdk/include/internal/dart_api_dl_impl.h", "vendored"),
+        ("lib/dart_sdk_utils.dart", "production"),
+        ("src/dartsdk/x.c", "production"),
         # min/ needs a third-party banner (test below); the path alone is not enough
         ("src/min/app.js", "production"),
         ("lib/min/util.js", "production"),
@@ -228,6 +233,8 @@ def test_reference_stub_needs_the_stub_body_and_the_ref_dir() -> None:
 def test_path_only_vendored_or_generated() -> None:
     assert is_vendored_or_generated_path("src/native/external/zlib/trees.c")
     assert is_vendored_or_generated_path("esql/src/main/generated/X.java")
+    assert is_vendored_or_generated_path("pedometer/src/dart-sdk/include/dart_api_dl.c")
+    assert not is_vendored_or_generated_path("pedometer/src/health_connect/foo.c")
     assert not is_vendored_or_generated_path("src/Monaco/monacoSRC/min/vs/loader.js")
     assert not is_vendored_or_generated_path("src/pkg/external/client.py")
     assert not is_vendored_or_generated_path("tests/test_app.py")
